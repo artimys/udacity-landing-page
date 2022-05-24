@@ -32,7 +32,8 @@ body {
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 40px;
+    text-align: center;
 }
 
 h2 {
@@ -64,4 +65,5 @@ a:hover {
 
 label {
     font-weight: bold;
+    cursor: pointer;
 }
