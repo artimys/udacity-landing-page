@@ -37,9 +37,8 @@ h1 {
 }
 
 h2 {
-    font-size: 35px;
-    margin-bottom: 20px;
-    color: var(--orange-ish);
+    font-size: 30px;
+    color: #888;
 }
 
 p {
