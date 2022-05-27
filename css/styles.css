@@ -154,6 +154,7 @@ label.menu-btn:hover {
     background-color: #fff;
     border-radius: 10px;
     padding: 10px 25px;
+    scroll-margin-top: 90px; /* WOW */
 }
 
 .panel .panel__title {
@@ -201,7 +202,7 @@ label.menu-btn:hover {
 }
 
 /* SCROLL TO TOP */
-#scroll-to-top {
+.scroll-to-top {
     position: fixed;
     z-index: 1000;
     width: 60px;
@@ -219,7 +220,11 @@ label.menu-btn:hover {
     visibility: hidden;
 }
 
-#scroll-to-top:hover {
+.scroll-to-top.scroll-to-top--visible {
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
     color: var(--gray-blue);
 }
 
