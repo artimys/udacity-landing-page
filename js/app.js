@@ -52,10 +52,9 @@ const data = [
     }
 ]
 
-const sectionList = document.querySelector("#section-list");
-const navbarList = document.querySelector(".navbar-list");
-const scrollToTop = document.querySelector(".scroll-to-top");
-const navbarLinks = document.querySelectorAll(".navbar__link");
+const sectionList = document.querySelector("#section-list");        // Container for sections
+const navbarList = document.querySelector(".navbar-list");          // Container for section links in navbar
+const scrollToTopBtn = document.querySelector(".scroll-to-top");    // Scroll to top button
 
 
 /* INSERT DATA TO DOM */
@@ -78,7 +77,7 @@ function addSectionToNavbar(section) {
     navbarList.append(li);
 }
 
-function addSectionToPanel(section) {
+function addSectionToSectionList(section) {
     // Unique ID to reference panel
     const sectionUniqueId = `panel-${section.id}`
 
@@ -123,18 +122,12 @@ function togglePanel(event) {
 
         // Add/remove class to collapse panel
         panel.classList.toggle("panel--collapse");
-
-        // if (panel.classList.contains("panel--collapse")) {
-        //     panel.classList.remove("panel--collapse");
-        // } else {
-        //     panel.classList.add("panel--collapse");
-        // }
     }
 }
 
 
 
-/* SCROLL TO SECTION (PANEL) */
+/* SCROLL TO ANCHOR */
 function scrollToPanel(event) {
     event.preventDefault();
     const navbarLink = event.target;
@@ -162,15 +155,15 @@ function scrollToPanel(event) {
 
 
 /* SCROLL TO TOP */
-function scrollToTopFadeIn() {
+function toggleScrollToTop() {
     if (window.pageYOffset > 300) {
-        scrollToTop.classList.add("scroll-to-top--visible");
+        scrollToTopBtn.classList.add("scroll-to-top--visible");
     } else {
-        scrollToTop.classList.remove("scroll-to-top--visible");
+        scrollToTopBtn.classList.remove("scroll-to-top--visible");
     }
 }
 
-function scrollUpToHeader() {
+function scrollUp() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/scroll
     window.scroll({
         top: 0,
@@ -181,31 +174,67 @@ function scrollUpToHeader() {
 
 
 
+/* SECTION ACTIVE STATE */
+function displayPanelInView(panelList) {
+    for (const panel of panelList)  {
+        const navbarLink = document.querySelector("a[data-id='#" + panel.id + "']");
+        if (panel.getBoundingClientRect().top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
+            resetNavbarLinks();
+            navbarLink.classList.add("navbar__link--active")
+        }
+    }
+}
+
+
+
 /* PAGE LOAD SETUP */
 document.addEventListener("DOMContentLoaded", function () {
     for (const section of data) {
         // Add link to navbar
         addSectionToNavbar(section);
 
-        // Add section to panel
-        addSectionToPanel(section)
+        // Add section to section container
+        addSectionToSectionList(section)
     }
 
-    // Event to toggle collapse panel
-    sectionList.addEventListener("click", togglePanel);
+    // Get the recently added elements
+    const navbarLinks = document.querySelectorAll(".navbar__link");
+    const panelList = sectionList.querySelectorAll(".panel");
 
-    // Scroll window event
+    // Attach window scroll event
     document.addEventListener("scroll", function() {
         // Make scroll btn appear after scrolling
-        scrollToTopFadeIn();
+        toggleScrollToTop();
+
+        // Section Active State
+        displayPanelInView(panelList);
     });
 
-    // Scroll to panel
-    const navbarLinks = document.querySelectorAll(".navbar__link");
+    // Attach event for each panel with scrollToPanel() functionality
     for (const link of navbarLinks) {
         link.addEventListener("click", scrollToPanel);
     }
 
-    // Scroll back to header
-    scrollToTop.addEventListener("click", scrollUpToHeader);
+    // Attach event to toggle panel (collapse/expand)
+    sectionList.addEventListener("click", togglePanel);
+
+    // Attah event to scroll back up to page
+    scrollToTopBtn.addEventListener("click", scrollUp);
 });
+
+
+
+
+/*
+TODO
+- readme
+- comment functions
+- hide navbar when not scrolling
+
+
+- decide to call it section or panel
+- async/ await?
+- different on load event?
+
+- bug: click between Section 1 and Section 2 in navbar. Events colliding with each other
+*/
