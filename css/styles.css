@@ -15,7 +15,8 @@
         minmax(var(--side-gutter-spacing), 1fr);
     min-height: 100vh;
     grid-template-rows: auto 1fr auto;
-    margin-top: 120px;
+    gap: 50px 0;
+    margin-top: 70px;
 }
 
 .page > * {
@@ -40,7 +41,6 @@
 
 .page footer {
     grid-row: 3 / 3;
-
     min-height: 100px;
     padding-top: 20px;
     font-weight: bold;
@@ -200,6 +200,29 @@ label.menu-btn:hover {
     content: "\f078"; /* chevron-down */
 }
 
+/* SCROLL TO TOP */
+#scroll-to-top {
+    position: fixed;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #888;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+#scroll-to-top:hover {
+    color: var(--gray-blue);
+}
+
 @media screen and (min-width: 700px) {
     .menu-bar {
         flex-direction: row;
@@ -209,9 +232,10 @@ label.menu-btn:hover {
     .navbar {
         display: block;
     }
+
     .navbar-list {
         flex-direction: row;
-        grid-gap: 20px;
+        gap: 20px;
     }
 
     label.menu-btn {
