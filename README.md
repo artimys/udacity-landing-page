@@ -1,13 +1,72 @@
-# Landing Page Project
+# Landing Page
+The page displays paragraphs in sections. Clickable links in navbar scroll the user to the specific section of content.
 
-## Table of Contents
+The basis of this project is to learn how to manipulate the DOM. Also to practice  using events for scrolling and clicking.
 
-* [Instructions](#instructions)
 
-## Instructions
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/artimys/udacity-landing-page?include_prereleases)
+![GitHub last commit](https://img.shields.io/github/last-commit/artimys/udacity-landing-page)
+![GitHub issues](https://img.shields.io/github/issues-raw/artimys/udacity-landing-page)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/artimys/udacity-landing-page)
+![GitHub All Releases](https://img.shields.io/github/downloads/artimys/udacity-landing-page/total)
+![GitHub](https://img.shields.io/github/license/artimys/udacity-landing-page)
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
 
-To get started, open `js/app.js` and start building out the app's functionality
+# Demo-Preview
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+[Preview the site](https://udacity-landing-page-arty.netlify.app/#panel-1)
+
+# Table of contents
+
+- [Project Title](#project-title)
+- [Demo-Preview](#demo-preview)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Development](#development)
+- [Contribute](#contribute)
+    - [Sponsor](#sponsor)
+    - [Adding new features or fixing bugs](#adding-new-features-or-fixing-bugs)
+- [License](#license)
+- [Footer](#footer)
+
+# Installation
+[(Back to top)](#table-of-contents)
+
+To use this project, first clone the repo on your device using the command below:
+
+```
+git clone https://github.com/artimys/udacity-landing-page.git
+```
+Open your favorite code editor and open `index.html` with your browser.
+
+
+# Usage
+[(Back to top)](#table-of-contents)
+
+
+# Development
+[(Back to top)](#table-of-contents)
+
+Ideally, you should keep the README simple. If you need to add more complex explanations, use a wiki. Check out [this wiki](https://github.com/navendu-pottekkat/nsfw-filter/wiki) for inspiration. -->
+
+# Contribute
+[(Back to top)](#table-of-contents)
+
+
+### Sponsor
+[(Back to top)](#table-of-contents)
+
+
+### Adding new features or fixing bugs
+[(Back to top)](#table-of-contents)
+
+Any issues found please submit an issue or a pull request. Keep it friendly.
+
+
+# License
+[(Back to top)](#table-of-contents)
+
+[GNU General Public License version 3](https://opensource.org/licenses/GPL-3.0)
+
+# Footer
+[(Back to top)](#table-of-contents)

@@ -117,7 +117,7 @@ function togglePanel(event) {
         const panel = document.querySelector("#" + event.target.dataset.id);
 
         // Remove active state for any navbar links
-        resetNavbarLinks();
+        // resetNavbarLinks();
 
         // Add/remove class to collapse panel
         panel.classList.toggle("panel--collapse");
@@ -233,12 +233,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /*
 TODO
-- readme
 - comment functions
 - hide navbar when not scrolling
 
 
 - decide to call it section or panel
 - async/ await?
-- different on load event?
+- difference on load events?
 */
