@@ -68,8 +68,7 @@ function addSectionToNavbar(section) {
 
     // Create <a>
     const a = document.createElement("a");
-    a.href = "#" ;
-    a.dataset.id = `#panel-${section.id}`;
+    a.href = `#panel-${section.id}`;
     a.className = "navbar__link";
     a.textContent = section.link;
 
@@ -177,7 +176,7 @@ function scrollUp() {
 /* SECTION ACTIVE STATE */
 function displayPanelInView(panelList) {
     for (const panel of panelList)  {
-        const navbarLink = document.querySelector("a[data-id='#" + panel.id + "']");
+        const navbarLink = document.querySelector("a[href='#" + panel.id + "']");
         if (panel.getBoundingClientRect().top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
             resetNavbarLinks();
             navbarLink.classList.add("navbar__link--active")
@@ -210,10 +209,17 @@ document.addEventListener("DOMContentLoaded", function () {
         displayPanelInView(panelList);
     });
 
+    /* BUG:
+       Clicking between Section 1 and Section 2 in navbar.
+       Event colliding with displayPanelInView().
+
+       This event works on its own. Comment and using
+       `html { scroll-behavior: smooth; }` as a workaround
+    */
     // Attach event for each panel with scrollToPanel() functionality
-    for (const link of navbarLinks) {
-        link.addEventListener("click", scrollToPanel);
-    }
+    // for (const link of navbarLinks) {
+        // link.addEventListener("click", scrollToPanel);
+    // }
 
     // Attach event to toggle panel (collapse/expand)
     sectionList.addEventListener("click", togglePanel);
@@ -235,6 +241,4 @@ TODO
 - decide to call it section or panel
 - async/ await?
 - different on load event?
-
-- bug: click between Section 1 and Section 2 in navbar. Events colliding with each other
 */
