@@ -15,6 +15,7 @@ The basis of this project is to learn how to manipulate the DOM. Also to practic
 # Demo-Preview
 
 [Preview the site](https://udacity-landing-page-arty.netlify.app/#panel-1)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a8bd1c0b-f28e-41fe-8084-a256cfa3eb9f/deploy-status)](https://app.netlify.com/sites/udacity-landing-page-arty/deploys)
 
 # Table of contents
 

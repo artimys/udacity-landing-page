@@ -234,9 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
 /*
 TODO
 - comment functions
-- hide navbar when not scrolling
-
-
 - decide to call it section or panel
 - async/ await?
 - difference on load events?
