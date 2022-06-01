@@ -185,6 +185,11 @@ function displayPanelInView(panelList) {
 }
 
 
+let abc;
+const header = document.querySelector("header");
+let pageFirstLoad = true;
+
+
 
 /* PAGE LOAD SETUP */
 document.addEventListener("DOMContentLoaded", function () {
@@ -200,6 +205,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const navbarLinks = document.querySelectorAll(".navbar__link");
     const panelList = sectionList.querySelectorAll(".panel");
 
+
+
+                if (window.pageYOffset === 0) {
+                    pageFirstLoad = false;
+                    // header.style.display = "block";
+                // } else {
+                //     header.style.display = "none";
+                }
+
+
     // Attach window scroll event
     document.addEventListener("scroll", function() {
         // Make scroll btn appear after scrolling
@@ -207,7 +222,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Section Active State
         displayPanelInView(panelList);
+
+        clearTimeout(abc);
+        // console.log(header.getBoundingClientRect().top);
+        console.log(window.pageYOffset);
+        header.style.display = "block";
+            abc = setTimeout(() => {
+                test();
+            }, 700);
     });
+
+
+    // header.style.display = "block";
 
     /* BUG:
        Clicking between Section 1 and Section 2 in navbar.
@@ -228,6 +254,20 @@ document.addEventListener("DOMContentLoaded", function () {
     scrollToTopBtn.addEventListener("click", scrollUp);
 });
 
+function test() {
+                console.log(pageFirstLoad);
+                if (pageFirstLoad) {
+                    pageFirstLoad = false;
+                console.log(pageFirstLoad);
+                    return;
+                }
+
+                console.log(window.pageYOffset > 10);
+                if (window.pageYOffset > 10) {
+                    console.log("stopped scrolling");
+                    header.style.display = "none";
+                }
+}
 
 
 
