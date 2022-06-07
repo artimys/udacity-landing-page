@@ -75,7 +75,6 @@ const addSectionToNavbar = item => {
     // Create <a>
     const a = document.createElement("a");
     a.id = `anchor-${item.id}`;
-    a.href = "#";
     a.dataset.panelId = `panel-${item.id}`;
     a.className = "navbar__link";
     a.textContent = item.link;
@@ -111,12 +110,24 @@ const addSectionToSectionList = item => {
 /**
  * @description Remove active state from all links in navbar
  */
-const resetNavbarLinks = () => {
+const resetActiveNavbarLinks = () => {
     const navbarLinks = document.querySelectorAll(".navbar__link");
 
     // Remove active state for any navbar links
     navbarLinks.forEach(function(link) {
         link.classList.remove("navbar__link--active");
+    });
+};
+
+/**
+ * @description Remove active state from all section panels
+ */
+const resetActivePanels = () => {
+    const panels = sectionList.querySelectorAll(".panel");
+
+    // Remove active state for all panels
+    panels.forEach(function(panel) {
+        panel.classList.remove("panel--active");
     });
 };
 
@@ -165,8 +176,9 @@ const togglePanel = event => {
     if (panelAnchor.className == "panel__toggle") {
         const panel = panelAnchor.parentElement.parentElement;
 
-        // Remove active state for any navbar links
-        resetNavbarLinks();
+        // Remove active state for navbar links and panels
+        resetActiveNavbarLinks();
+        resetActivePanels();
 
         // Add/remove class to collapse panel
         panel.classList.toggle("panel--collapse");
@@ -178,26 +190,27 @@ const togglePanel = event => {
  * @param {click event} event click event from a navbar link
  */
 const scrollToPanel = event => {
-    console.log(event);
     event.preventDefault();
-    const navbarLink = event.target;
-    const sectionPanel = document.querySelector("#" + navbarLink.dataset.panelId);
+    const currentNavbarLink = event.target;
+    const currentPanel = document.querySelector("#" + currentNavbarLink.dataset.panelId);
 
-    // Remove active state for any navbar links
-    resetNavbarLinks();
+    // Remove active state for navbar links and panels
+    resetActiveNavbarLinks();
+    resetActivePanels();
 
-    // Set active state to current link
-    navbarLink.classList.add("navbar__link--active");
+    // Set active state to current link and panel
+    currentNavbarLink.classList.add("navbar__link--active");
+    currentPanel.classList.add("panel--active");
 
     // Expand panel in case it is collapsed
-    sectionPanel.classList.remove("panel--collapse");
+    currentPanel.classList.remove("panel--collapse");
 
     /*
     This scrolls just after the element,
     Nice CSS `scroll-margin-top` compliments the offset
     https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
     https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView */
-    sectionPanel.scrollIntoView({
+    currentPanel.scrollIntoView({
         behavior: "smooth"
     });
 };
@@ -215,8 +228,10 @@ const displayPanelInView = panelList => {
 
         if (panel.getBoundingClientRect().top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
         // if ( top <= 150 && (bot-150) > 80 ) {
-            resetNavbarLinks();
-            navbarLink.classList.add("navbar__link--active")
+            resetActivePanels();
+            resetActiveNavbarLinks();
+            panel.classList.add("panel--active");
+            navbarLink.classList.add("navbar__link--active");
         }
     }
 };

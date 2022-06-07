@@ -59,6 +59,7 @@ a,
 a:visited,
 a:focus {
     font-weight: bold;
+    cursor: pointer;
 }
 
 a:hover {
