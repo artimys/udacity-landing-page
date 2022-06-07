@@ -24,9 +24,10 @@
     box-sizing: border-box;
 }
 
-html {
+/* Disable */
+/* html {
     scroll-behavior: smooth;
-}
+} */
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
@@ -58,11 +59,9 @@ a,
 a:visited,
 a:focus {
     font-weight: bold;
-    /* color: var(--orange); */
 }
 
 a:hover {
-    /* color: var(--orange-hover); */
     text-decoration: underline;
 }
 

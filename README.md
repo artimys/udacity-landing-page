@@ -12,15 +12,15 @@ The basis of this project is to learn how to manipulate the DOM. Also to practic
 ![GitHub](https://img.shields.io/github/license/artimys/udacity-landing-page)
 
 
-# Demo-Preview
+# Demo
 
-[Preview the site](https://udacity-landing-page-arty.netlify.app/#panel-1)
+[https://udacity-landing-page-arty.netlify.app](https://udacity-landing-page-arty.netlify.app/)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a8bd1c0b-f28e-41fe-8084-a256cfa3eb9f/deploy-status)](https://app.netlify.com/sites/udacity-landing-page-arty/deploys)
 
 # Table of contents
 
-- [Project Title](#project-title)
-- [Demo-Preview](#demo-preview)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Development](#development)
@@ -44,25 +44,19 @@ Open your favorite code editor and open `index.html` with your browser.
 # Usage
 [(Back to top)](#table-of-contents)
 
-
 # Development
 [(Back to top)](#table-of-contents)
-
-Ideally, you should keep the README simple. If you need to add more complex explanations, use a wiki. Check out [this wiki](https://github.com/navendu-pottekkat/nsfw-filter/wiki) for inspiration. -->
 
 # Contribute
 [(Back to top)](#table-of-contents)
 
-
 ### Sponsor
 [(Back to top)](#table-of-contents)
-
 
 ### Adding new features or fixing bugs
 [(Back to top)](#table-of-contents)
 
 Any issues found please submit an issue or a pull request. Keep it friendly.
-
 
 # License
 [(Back to top)](#table-of-contents)

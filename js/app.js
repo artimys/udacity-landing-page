@@ -52,85 +52,136 @@ const data = [
     }
 ]
 
-const sectionList = document.querySelector("#section-list");        // Container for sections
-const navbarList = document.querySelector(".navbar-list");          // Container for section links in navbar
-const scrollToTopBtn = document.querySelector(".scroll-to-top");    // Scroll to top button
+// Container for sections
+const sectionList = document.querySelector("#section-list");
+// Container for section links in navbar
+const navbarList = document.querySelector(".navbar-list");
+// Scroll to top button
+const scrollToTopBtn = document.querySelector(".scroll-to-top");
 
 
-/* INSERT DATA TO DOM */
-function addSectionToNavbar(section) {
-    // Template
-    // <li class="navbar__item"><a href="#" class="navbar__link">Section 2</a></li>
+/* INSERT DATA TO DOM
+**********************************************************************/
 
+/**
+ * @description Build navigation link to append to navbar
+ * @param {object} item represents an object from `data` array
+ */
+const addSectionToNavbar = item => {
     // Create <li>
     const li = document.createElement("li");
     li.className = "navbar__item"
 
     // Create <a>
     const a = document.createElement("a");
-    a.href = `#panel-${section.id}`;
+    a.id = `anchor-${item.id}`;
+    a.href = "#";
+    a.dataset.panelId = `panel-${item.id}`;
     a.className = "navbar__link";
-    a.textContent = section.link;
+    a.textContent = item.link;
 
     li.appendChild(a);
     navbarList.append(li);
-}
+};
 
-function addSectionToSectionList(section) {
-    // Unique ID to reference panel
-    const sectionUniqueId = `panel-${section.id}`
-
+/**
+ * @description Build a section for item content which appends to section list
+ * @param {object} item represents an object from `data` array
+ */
+const addSectionToSectionList = item => {
     // Keep appending existing HTML with new HTML snippet
-    // for section list
     sectionList.innerHTML += `
-        <section id="${sectionUniqueId}" class="panel">
+        <section id="panel-${item.id}" data-anchor-id="anchor-${item.id}" class="panel">
             <h2 class="panel__title">
-                <a href="#" data-id="${sectionUniqueId}" class="panel__toggle">
-                   ${section.title}
+                <a href="#" class="panel__toggle">
+                   ${item.title}
                 </a>
             </h2>
             <div class="panel__body">
-                <p>${section.content}</p>
+                <p>${item.content}</p>
             </div>
         </section>
     `;
-}
+};
 
 
+/* HELPER FUNCTIONS
+**********************************************************************/
 
-/* HELPER FUNCTIONS */
-function resetNavbarLinks() {
+/**
+ * @description Remove active state from all links in navbar
+ */
+const resetNavbarLinks = () => {
     const navbarLinks = document.querySelectorAll(".navbar__link");
 
     // Remove active state for any navbar links
     navbarLinks.forEach(function(link) {
         link.classList.remove("navbar__link--active");
     });
-}
+};
 
 
-/* COLLAPSE PANEL EVENT */
-function togglePanel(event) {
+/* SCROLL TO TOP
+**********************************************************************/
+
+/**
+ * @description Display scroll button when scrolling down passed a specific position.
+ *              Button will hide when scrolling up passed a specific position
+ */
+const toggleScrollToTop = () => {
+    if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add("scroll-to-top--visible");
+    } else {
+        scrollToTopBtn.classList.remove("scroll-to-top--visible");
+    }
+};
+
+/**
+ * @description Will smooth scroll back to top of page
+ */
+const scrollUp = () => {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/scroll
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+    });
+};
+
+
+/* PANEL COMPONENT
+**********************************************************************/
+
+/**
+ * @description Toggle expanding and collapsing the section panel
+ * @param {click event} event
+ */
+const togglePanel = event => {
     event.preventDefault();
 
-    if (event.target.className == "panel__toggle") {
-        const panel = document.querySelector("#" + event.target.dataset.id);
+    // event.target should be the anchor in the section panel
+    const panelAnchor = event.target;
+
+    if (panelAnchor.className == "panel__toggle") {
+        const panel = panelAnchor.parentElement.parentElement;
 
         // Remove active state for any navbar links
-        // resetNavbarLinks();
+        resetNavbarLinks();
 
         // Add/remove class to collapse panel
         panel.classList.toggle("panel--collapse");
     }
-}
+};
 
-
-
-/* SCROLL TO ANCHOR */
-function scrollToPanel(event) {
+/**
+ * @description Smooth scroll to section panel from navbar
+ * @param {click event} event click event from a navbar link
+ */
+const scrollToPanel = event => {
+    console.log(event);
     event.preventDefault();
     const navbarLink = event.target;
-    const sectionPanel = document.querySelector(navbarLink.dataset.id);
+    const sectionPanel = document.querySelector("#" + navbarLink.dataset.panelId);
 
     // Remove active state for any navbar links
     resetNavbarLinks();
@@ -149,45 +200,28 @@ function scrollToPanel(event) {
     sectionPanel.scrollIntoView({
         behavior: "smooth"
     });
-}
+};
 
-
-
-/* SCROLL TO TOP */
-function toggleScrollToTop() {
-    if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add("scroll-to-top--visible");
-    } else {
-        scrollToTopBtn.classList.remove("scroll-to-top--visible");
-    }
-}
-
-function scrollUp() {
-    // https://developer.mozilla.org/en-US/docs/Web/API/Window/scroll
-    window.scroll({
-        top: 0,
-        left: 0,
-        behavior: "smooth"
-    });
-}
-
-
-
-/* SECTION ACTIVE STATE */
-function displayPanelInView(panelList) {
+/**
+ * @description Set active state to corresponding navbar link when panel in top of viewport
+ * @param {NodeList} panelList list of section.panels
+ */
+const displayPanelInView = panelList => {
     for (const panel of panelList)  {
-        const navbarLink = document.querySelector("a[href='#" + panel.id + "']");
+        const navbarLink = document.querySelector("a#" + panel.dataset.anchorId);
         if (panel.getBoundingClientRect().top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
             resetNavbarLinks();
             navbarLink.classList.add("navbar__link--active")
         }
     }
-}
+};
 
 
+/* PAGE LOAD
+**********************************************************************/
 
-/* PAGE LOAD SETUP */
-document.addEventListener("DOMContentLoaded", function () {
+// document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     for (const section of data) {
         // Add link to navbar
         addSectionToNavbar(section);
@@ -212,29 +246,15 @@ document.addEventListener("DOMContentLoaded", function () {
     /* BUG:
        Clicking between Section 1 and Section 2 in navbar.
        Event colliding with displayPanelInView().
-
-       This event works on its own. Comment and using
-       `html { scroll-behavior: smooth; }` as a workaround
     */
     // Attach event for each panel with scrollToPanel() functionality
-    // for (const link of navbarLinks) {
-        // link.addEventListener("click", scrollToPanel);
-    // }
+    for (const link of navbarLinks) {
+        link.addEventListener("click", scrollToPanel);
+    }
 
     // Attach event to toggle panel (collapse/expand)
     sectionList.addEventListener("click", togglePanel);
 
-    // Attah event to scroll back up to page
+    // Attach event to scroll btn to go back up to page
     scrollToTopBtn.addEventListener("click", scrollUp);
 });
-
-
-
-
-/*
-TODO
-- comment functions
-- decide to call it section or panel
-- async/ await?
-- difference on load events?
-*/
