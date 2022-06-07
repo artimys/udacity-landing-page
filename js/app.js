@@ -129,7 +129,7 @@ const resetNavbarLinks = () => {
  *              Button will hide when scrolling up passed a specific position
  */
 const toggleScrollToTop = () => {
-    if (window.pageYOffset > 300) {
+    if (window.scrollY > 300) {
         scrollToTopBtn.classList.add("scroll-to-top--visible");
     } else {
         scrollToTopBtn.classList.remove("scroll-to-top--visible");
@@ -137,7 +137,7 @@ const toggleScrollToTop = () => {
 };
 
 /**
- * @description Will smooth scroll back to top of page
+ * @description Smooth scroll back to top of page
  */
 const scrollUp = () => {
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/scroll
@@ -209,7 +209,12 @@ const scrollToPanel = event => {
 const displayPanelInView = panelList => {
     for (const panel of panelList)  {
         const navbarLink = document.querySelector("a#" + panel.dataset.anchorId);
+        let top = panel.getBoundingClientRect().top;
+        let bot = panel.getBoundingClientRect().bottom + 100;
+        let y = window.pageYOffset;
+
         if (panel.getBoundingClientRect().top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
+        // if ( top <= 150 && (bot-150) > 80 ) {
             resetNavbarLinks();
             navbarLink.classList.add("navbar__link--active")
         }
@@ -217,10 +222,15 @@ const displayPanelInView = panelList => {
 };
 
 
+
+
+
+
+
+
 /* PAGE LOAD
 **********************************************************************/
 
-// document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", () => {
     for (const section of data) {
         // Add link to navbar
