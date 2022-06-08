@@ -222,16 +222,14 @@ const scrollToPanel = event => {
 const displayPanelInView = panelList => {
     for (const panel of panelList)  {
         const navbarLink = document.querySelector("a#" + panel.dataset.anchorId);
-        let top = panel.getBoundingClientRect().top;
-        let bot = panel.getBoundingClientRect().bottom + 100;
-        let y = window.pageYOffset;
+        const top = panel.getBoundingClientRect().top;
 
-        if (panel.getBoundingClientRect().top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
-        // if ( top <= 150 && (bot-150) > 80 ) {
+        if (top > 0 && top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
             resetActivePanels();
             resetActiveNavbarLinks();
             panel.classList.add("panel--active");
             navbarLink.classList.add("navbar__link--active");
+            // console.log(navbarLink.textContent);
         }
     }
 };
