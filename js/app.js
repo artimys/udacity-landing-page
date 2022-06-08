@@ -88,6 +88,7 @@ const addSectionToNavbar = item => {
  * @param {object} item represents an object from `data` array
  */
 const addSectionToSectionList = item => {
+    // const docFrag = document.createDocumentFragment();
     // Keep appending existing HTML with new HTML snippet
     sectionList.innerHTML += `
         <section id="panel-${item.id}" data-anchor-id="anchor-${item.id}" class="panel">
@@ -220,11 +221,12 @@ const scrollToPanel = event => {
  * @param {NodeList} panelList list of section.panels
  */
 const displayPanelInView = panelList => {
-    for (const panel of panelList)  {
+    for (const panel of panelList) {
         const navbarLink = document.querySelector("a#" + panel.dataset.anchorId);
         const top = panel.getBoundingClientRect().top;
 
-        if (top > 0 && top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
+        // if (top > 0 && top < 150 && !navbarLink.classList.contains("navbar__link--active")) {
+        if (isInViewport(panel) && !navbarLink.classList.contains("navbar__link--active")) {
             resetActivePanels();
             resetActiveNavbarLinks();
             panel.classList.add("panel--active");
@@ -236,7 +238,28 @@ const displayPanelInView = panelList => {
 
 
 
+function isInViewport(element) {
+    const y = window.pageYOffset;
+    const rect = element.getBoundingClientRect();
+    const elementWidth = element.offsetWidth;
+    const elementHeight= element.offsetHeight;
 
+    return (
+        // Entire element has to show in viewport from bottom to be active
+        rect.top >= 0
+        && rect.left >= 0
+        && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+
+        // Partial of element showing in viewport from bottom will make active
+        // rect.top >= -elementHeight
+        // && rect.left >= -elementWidth
+        // && rect.right <= (window.innerWidth || document.documentElement.clientWidth) + elementWidth
+        // && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + elementHeight
+
+        // y >= element.offsetTop
+    );
+}
 
 
 
